@@ -12,15 +12,22 @@ export default function DepartmentList() {
   }, []);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Departments</h2>
-      <ul>
-        {departments.map((dept) => (
-          <li key={dept._id}>
-            <strong>{dept.name}</strong> — HOD: {dept.hod}, Building: {dept.building}
-          </li>
-        ))}
-      </ul>
+    <div className="item-list">
+      {departments.length === 0 ? (
+        <div className="loading">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        departments.map((dept) => (
+          <div key={dept._id} className="item-card">
+            <h4>🏢 {dept.name}</h4>
+            <div className="item-details">
+              <p><strong>Head of Department:</strong> {dept.hod}</p>
+              <p><strong>Building:</strong> <span className="badge badge-info">{dept.building}</span></p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }

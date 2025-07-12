@@ -1,10 +1,9 @@
 // src/App.js
 import React, { useState, useEffect } from "react";
-import DepartmentList from "./components/DepartmentList";
 import DepartmentForm from "./components/DepartmentForm";
-import FacultyList from "./components/FacultyList";
 import FacultyForm from "./components/FacultyForm";
 import axios from "axios";
+import "./App.css";
 
 function App() {
   const [departments, setDepartments] = useState([]);
@@ -31,65 +30,104 @@ function App() {
   }, []);
 
   return (
-    <div style={{ padding: "30px", fontFamily: "Arial" }}>
-      <h1>College Department & Faculty Management</h1>
+    <div className="App">
+      {/* Header */}
+      <div className="app-header">
+        <h1>🏫 Faculty Management System</h1>
+        <p>Manage your college departments and faculty members efficiently</p>
+      </div>
 
       {/* Department Form Section */}
-      <div style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "20px" }}>
-        <DepartmentForm
-          departmentToEdit={editDepartment}
-          onSave={() => {
-            setEditDepartment(null);
-            fetchDepartments();
-          }}
-        />
+      <div className="section">
+        <div className="content-container">
+          <div className="section-header">
+            <span className="icon">🏢</span>
+            <h2>Department Management</h2>
+          </div>
+          <DepartmentForm
+            departmentToEdit={editDepartment}
+            onSave={() => {
+              setEditDepartment(null);
+              fetchDepartments();
+            }}
+          />
+        </div>
       </div>
 
       {/* Department List Section */}
-      <div style={{ marginBottom: "40px" }}>
-        <h2>Departments</h2>
-        <ul>
-          {departments.map(dept => (
-            <li key={dept._id}>
-              {dept.name} (HOD: {dept.hod}, Building: {dept.building})
-              <button
-                onClick={() => setEditDepartment(dept)}
-                style={{ marginLeft: "10px" }}
-              >
-                Edit
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="section">
+        <div className="content-container">
+          <div className="section-header">
+            <span className="icon">📋</span>
+            <h2>All Departments</h2>
+          </div>
+          <div className="item-list">
+            {departments.map(dept => (
+              <div key={dept._id} className="item-card">
+                <h4>{dept.name}</h4>
+                <div className="item-details">
+                  <p><strong>Head of Department:</strong> {dept.hod}</p>
+                  <p><strong>Building:</strong> {dept.building}</p>
+                </div>
+                <div className="item-actions">
+                  <button
+                    onClick={() => setEditDepartment(dept)}
+                    className="btn btn-secondary"
+                  >
+                    ✏️ Edit
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Faculty Form Section */}
-      <div style={{ border: "1px solid #ccc", padding: "15px", marginBottom: "20px" }}>
-        <FacultyForm
-          facultyToEdit={editFaculty}
-          onSave={() => {
-            setEditFaculty(null);
-            fetchFaculties();
-          }}
-        />
+      <div className="section">
+        <div className="content-container">
+          <div className="section-header">
+            <span className="icon">👥</span>
+            <h2>Faculty Management</h2>
+          </div>
+          <FacultyForm
+            facultyToEdit={editFaculty}
+            onSave={() => {
+              setEditFaculty(null);
+              fetchFaculties();
+            }}
+          />
+        </div>
       </div>
 
       {/* Faculty List Section */}
-      <div>
-        <h2>Faculties</h2>
-        <ul>
-          {faculties.map(fac => (
-            <li key={fac._id}>
-              {fac.name} - {fac.designation} - {fac.email} - Dept: {fac.departmentId?.name || "N/A"}
-              <button
-                onClick={() => setEditFaculty(fac)}
-                style={{ marginLeft: "10px" }}
-              >
-                Edit
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="section">
+        <div className="content-container">
+          <div className="section-header">
+            <span className="icon">🎓</span>
+            <h2>All Faculty Members</h2>
+          </div>
+          <div className="item-list">
+            {faculties.map(fac => (
+              <div key={fac._id} className="item-card">
+                <h4>{fac.name}</h4>
+                <div className="item-details">
+                  <p><strong>Designation:</strong> {fac.designation}</p>
+                  <p><strong>Email:</strong> {fac.email}</p>
+                  <p><strong>Department:</strong> {fac.departmentId?.name || "N/A"}</p>
+                </div>
+                <div className="item-actions">
+                  <button
+                    onClick={() => setEditFaculty(fac)}
+                    className="btn btn-secondary"
+                  >
+                    ✏️ Edit
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

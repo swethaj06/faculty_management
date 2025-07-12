@@ -14,15 +14,23 @@ export default function FacultyList() {
   }, []);
 
   return (
-    <div>
-      <h2>Faculties</h2>
-      <ul>
-        {faculties.map(fac => (
-          <li key={fac._id}>
-            <strong>{fac.name}</strong> — {fac.designation}, Email: {fac.email}, Dept: {fac.departmentId?.name || "N/A"}
-          </li>
-        ))}
-      </ul>
+    <div className="item-list">
+      {faculties.length === 0 ? (
+        <div className="loading">
+          <div className="spinner"></div>
+        </div>
+      ) : (
+        faculties.map((fac) => (
+          <div key={fac._id} className="item-card">
+            <h4>👨‍🏫 {fac.name}</h4>
+            <div className="item-details">
+              <p><strong>Designation:</strong> <span className="badge badge-success">{fac.designation}</span></p>
+              <p><strong>Email:</strong> {fac.email}</p>
+              <p><strong>Department:</strong> {fac.departmentId?.name || "N/A"}</p>
+            </div>
+          </div>
+        ))
+      )}
     </div>
   );
 }

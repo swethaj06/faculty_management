@@ -36,31 +36,52 @@ const DepartmentForm = ({ departmentToEdit, onSave }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{departmentToEdit ? "Edit" : "Add"} Department</h3>
-      <input
-        type="text"
-        placeholder="Department Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      /><br />
-      <input
-        type="text"
-        placeholder="Head of Department"
-        value={hod}
-        onChange={(e) => setHod(e.target.value)}
-        required
-      /><br />
-      <input
-        type="text"
-        placeholder="Building"
-        value={building}
-        onChange={(e) => setBuilding(e.target.value)}
-        required
-      /><br />
-      <button type="submit">{departmentToEdit ? "Update" : "Add"} Department</button>
-    </form>
+    <div className="form-container">
+      <h3>{departmentToEdit ? "✏️ Edit" : "➕ Add"} Department</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="form-grid">
+          <div className="form-group">
+            <label htmlFor="name">Department Name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter department name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="hod">Head of Department</label>
+            <input
+              id="hod"
+              type="text"
+              placeholder="Enter HOD name"
+              value={hod}
+              onChange={(e) => setHod(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="building">Building</label>
+            <input
+              id="building"
+              type="text"
+              placeholder="Enter building name/number"
+              value={building}
+              onChange={(e) => setBuilding(e.target.value)}
+              required
+            />
+          </div>
+        </div>
+        
+        <button type="submit" className="btn btn-primary">
+          {departmentToEdit ? "🔄 Update" : "➕ Add"} Department
+        </button>
+      </form>
+    </div>
   );
 };
 

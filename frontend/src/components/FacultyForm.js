@@ -54,57 +54,72 @@ export default function FacultyForm({ facultyToEdit, onSave }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h3>{facultyToEdit ? "Edit" : "Add"} Faculty</h3>
+    <div className="form-container">
+      <h3>{facultyToEdit ? "✏️ Edit" : "➕ Add"} Faculty</h3>
+      <form onSubmit={handleSubmit}>
+        <div className="form-grid">
+          <div className="form-group">
+            <label htmlFor="name">Faculty Name</label>
+            <input
+              id="name"
+              type="text"
+              name="name"
+              placeholder="Enter faculty name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-      <input
-        type="text"
-        name="name"
-        placeholder="Faculty Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <br />
+          <div className="form-group">
+            <label htmlFor="designation">Designation</label>
+            <input
+              id="designation"
+              type="text"
+              name="designation"
+              placeholder="e.g., Professor, Assistant Professor"
+              value={formData.designation}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-      <input
-        type="text"
-        name="designation"
-        placeholder="Designation"
-        value={formData.designation}
-        onChange={handleChange}
-        required
-      />
-      <br />
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Enter email address"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        value={formData.email}
-        onChange={handleChange}
-        required
-      />
-      <br />
+          <div className="form-group">
+            <label htmlFor="departmentId">Department</label>
+            <select
+              id="departmentId"
+              name="departmentId"
+              value={formData.departmentId}
+              onChange={handleChange}
+              required
+            >
+              <option value="">-- Select Department --</option>
+              {departments.map(dep => (
+                <option key={dep._id} value={dep._id}>
+                  {dep.name} ({dep.building})
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
 
-      <label htmlFor="departmentId">Department</label><br />
-      <select
-        id="departmentId"
-        name="departmentId"
-        value={formData.departmentId}
-        onChange={handleChange}
-        required
-      >
-        <option value="">-- Select Department --</option>
-        {departments.map(dep => (
-          <option key={dep._id} value={dep._id}>
-            {dep.name} ({dep.building})
-          </option>
-        ))}
-      </select>
-      <br /><br />
-
-      <button type="submit">{facultyToEdit ? "Update" : "Create"}</button>
-    </form>
+        <button type="submit" className="btn btn-primary">
+          {facultyToEdit ? "🔄 Update" : "➕ Create"} Faculty
+        </button>
+      </form>
+    </div>
   );
 }
